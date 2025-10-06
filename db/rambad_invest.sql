@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 06, 2025 at 01:14 PM
+-- Generation Time: Oct 06, 2025 at 02:09 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -73,7 +73,8 @@ CREATE TABLE `users` (
 -- Indexes for table `investment`
 --
 ALTER TABLE `investment`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_invest_users` (`user_id`);
 
 --
 -- Indexes for table `transactions`
@@ -115,6 +116,12 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `investment`
+--
+ALTER TABLE `investment`
+  ADD CONSTRAINT `fk_invest_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `transactions`
