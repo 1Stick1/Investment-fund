@@ -43,6 +43,7 @@ html{
 }
 
 .button{
+    display: inline-block;
     padding: 15px 40px;
     background-color: #9f7030;
     border-radius: 5px;
@@ -51,11 +52,12 @@ html{
     font-weight:600;
     text-decoration: none;
     transition: 0.2s all ease;
+    border: 3px solid #9f7030;
 }
 
 .button:hover{
-    background-color: #b1aca9;
-    color: #000;
+    background-color: #f0c060;
+    border: 3px solid #9f7030;
 }
 
 .main-container {
@@ -65,29 +67,32 @@ html{
     box-sizing: border-box; 
 }
 
-
+/*------------------------------HEADER-----------------------------------*/
 .header{
     position:absolute;
     left: 0;
     top: 0;
-    padding: 20px;
     width: 100%;
     height: 80px;
     display: flex;
     justify-content: space-between;
-    background-color: #f0c060;
+    background-color: #aa853a;
 }
 
-
 .logo{
-    width: 80px;
+    height: 80px;
     position: relative;
   }
 .logo__image{
   position: absolute;
-  top: -15px;
+  top: -5px;
   left: 0;
-  width: 100%;
+  height: 100%;
+}
+
+.header__logo{
+  height: 80px;
+  width: 200px;
 }
 
 .header__menu-list{
@@ -109,15 +114,11 @@ html{
 }
 
 .header__login{
-  position: relative;
-    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
 }
-.header__login-button{
-  position: absolute;
-  right: 0;
-  top: 8px;
-}
-
 
 .main-container {
     max-width: 1140px;    
@@ -125,6 +126,14 @@ html{
     padding: 0 20px;   
     box-sizing: border-box; 
 }
+
+/*-------------------------------------------------------------------------------------*/
+
+
+
+
+
+/*------------------------LOGIN/REGISTRATION-----------------------------------------*/
 
 .auth {
   margin: 300px auto;
@@ -173,7 +182,6 @@ html{
 
 .auth__button {
   padding: 10px 20px;
-  border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size:14px;
@@ -187,3 +195,120 @@ html{
 .auth__button-login {
   font-size: 15px;
 }
+
+/*----------------------------------------------------------------------------------------------*/
+
+
+
+
+/*---------------------------------------ABOUT-US----------------------------------------------*/
+
+
+.content{
+     color: #737077;
+     margin-top: 80px;
+}
+
+.banner {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 0;
+    background: #737077;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://cdn.discordapp.com/attachments/1424686537458581578/1425065801827745863/GTDG_5.jpg?ex=68e63b73&is=68e4e9f3&hm=389f2b54b9081832409bbd81350ef995cc3d25be28a4bb1586d6652f6e6f37ab&);
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+}
+
+
+.title{
+    color: black;
+}
+.banner__content {
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+}
+.container{
+    max-width: 1140px;     
+    margin: 0 auto;        
+    padding: 0 20px;       
+    box-sizing: border-box;
+}
+.banner__title {
+    color: #fff;
+}
+.banner__column {
+    text-align: center;
+
+    width: 750px;
+    text-align: center;
+}
+
+.banner__logo img {
+    width: 220px;
+    margin-bottom: 10px;
+}
+
+.banner__column h1 {
+    margin-bottom: 20px;
+    font-size: 32px;
+}
+
+.banner__column p {
+    line-height: 1.6;
+    font-size: 16px;
+    color: #fff;
+}
+
+.objectives__container {
+    text-align: center;
+    padding: 30px 0;
+}
+
+.objectives__content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.objectives__content-block{
+    margin-top: 50px;
+}
+.objectives__container h2 {
+    font-size: 34px;
+}
+
+.objectives__content h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.objectives__content p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0 auto;
+    max-width: 700px;
+}
+.investments{
+    background: #2b2b2b;
+}
+
+.investments__text{
+    width: 600px;
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: 800;
+    color: #f0f3f2;
+}
+
+.investments__content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 0;
+    text-align: center;
+}
+/*-------------------------------------------------------------------------*/

@@ -2,10 +2,10 @@
 
         <div class="header__logo logo"><img class="logo__image" src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo"></div>
         <div class="header__menu-list">
-             <div class="header__list-element"><a class="link" href="">Główna</a></div>
+             <div class="header__list-element"><a class="link" href="{{ url_for('index') }}">Główna</a></div>
              <div class="header__list-element"><a class="link" href="">Inwestycji</a></div>
              <div class="header__list-element"><a class="link" href="">Kalkulator</a></div>
-             <div class="header__list-element"><a class="link" href="">O nas</a></div>
+             <div class="header__list-element"><a class="link" href="{{ url_for('about_us') }}">O nas</a></div>
         </div>
         <div class="header__login">
             <div class="header__login-button"><a class="button" href="{{ url_for('login') }}">Login</a></div>
