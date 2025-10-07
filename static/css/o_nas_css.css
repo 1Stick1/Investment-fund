@@ -1,0 +1,140 @@
+body {
+    margin: 0;
+    color: #737077;
+    text-align: center;
+    background: #f0f3f2;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ul, ol {
+    list-style: none; 
+}
+
+a {
+    text-decoration: none; 
+    color: inherit;
+}
+
+img, picture, video, canvas, svg {
+    max-width: 100%;
+}
+
+h1 {
+    color: #fff;
+}
+
+h2, h3 {
+    color: black;
+}
+
+button, input, select, textarea {
+    background: none;
+    border: none;
+    font: inherit;
+    color: inherit;
+}
+
+table {
+    border-collapse: collapse; 
+    border-spacing: 0;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+html {
+    font-family: "Mulish", sans-serif;
+    background-color: #f0f3f2;
+} 
+
+.main-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 0;
+    background: #737077;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://cdn.discordapp.com/attachments/1424686537458581578/1425065801827745863/GTDG_5.jpg?ex=68e63b73&is=68e4e9f3&hm=389f2b54b9081832409bbd81350ef995cc3d25be28a4bb1586d6652f6e6f37ab&);
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+}
+
+.main-banner-content {
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+}
+
+.main-column {
+    width: 750px;
+}
+
+.main-column-logo img {
+    width: 220px;
+    margin-bottom: 10px;
+}
+
+.main-column h1 {
+    margin-bottom: 20px;
+    font-size: 32px;
+}
+
+.main-column p {
+    line-height: 1.6;
+    font-size: 16px;
+    color: #fff;
+}
+
+.objectives-container {
+    padding: 30px 0;
+}
+
+.objectives-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.objectives-container h2 {
+    font-size: 34px;
+}
+
+.objectives-content h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.objectives-content p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0 auto;
+    max-width: 700px;
+}
+
+.investments-container {
+    padding: 30px 0;
+    background: #b1aca9;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.investments-content {
+    padding: 0 250px;
+    align-items: center;
+}
+
+.investments-button {
+    display: inline-block;
+    background: #9f7030;
+    color: #fff;
+    padding: 15px 40px;
+    font-size: 18px;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: 0.3s ease;
+}
+
+.investments-button:hover {
+    background: #737077;
+}
+
