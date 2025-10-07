@@ -1,0 +1,119 @@
+* {
+  margin: 0;     
+  padding: 0;      
+  box-sizing: border-box; 
+}
+
+
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, figure, blockquote, dl, dt, dd {
+  margin: 0;
+  padding: 0;
+}
+
+ul, ol {
+  list-style: none; 
+}
+
+a {
+  text-decoration: none; 
+  color: inherit;        
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+button, input, select, textarea {
+  background: none;
+  border: none;
+  font: inherit;
+  color: inherit;
+}
+
+table {
+  border-collapse: collapse; 
+  border-spacing: 0;
+}
+/*-----------------------------------------------------------------------------------------------------*/
+@import url('https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+html{
+    font-family: "Mulish", sans-serif;
+    background-color: #f0f3f2;
+    height: 40000px;
+}
+.button{
+    padding: 15px 40px;
+    background-color: #9f7030;
+    border-radius: 5px;
+    color: white;
+    font-size: 18px;
+    font-weight:600;
+    text-decoration: none;
+    transition: 0.2s all ease;
+}
+
+.button:hover{
+    background-color: #b1aca9;
+    color: #000;
+}
+
+.header{
+    position:absolute;
+    left: 0;
+    top: 0;
+    padding: 20px;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #f0c060;
+}
+
+
+.logo{
+    width: 80px;
+    position: relative;
+  }
+.logo__image{
+  position: absolute;
+  top: -15px;
+  left: 0;
+  width: 100%;
+}
+
+.header__menu-list{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 500px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #000;
+
+}
+.header__list-element:hover{
+    color: #b1aca9;
+    transition: 0.2s all ease;
+}
+.header__list-element{
+    transition: 0.2s all ease;
+}
+
+.header__login{
+  position: relative;
+    width: 100px;
+}
+.header__login-button{
+  position: absolute;
+  right: 0;
+  top: 8px;
+}
+
+
+.main-container {
+    max-width: 1140px;    
+    margin: 0 auto;       
+    padding: 0 20px;   
+    box-sizing: border-box; 
+}
