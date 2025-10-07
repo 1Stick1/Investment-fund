@@ -7,8 +7,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+
+
   {% include "header.html" %}
-  <div class="main-container">
+
+
+  <div class="container">
     <div class="auth">
   <h2 class="auth__title">Rejestracja</h2>
 
@@ -40,5 +44,7 @@
   </form>
 </div>
 </div>
+
+{% include "footer.html" %}
 </body>
 </html>

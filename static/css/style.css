@@ -60,16 +60,15 @@ html{
     border: 3px solid #9f7030;
 }
 
-.main-container {
+
+.container{
     max-width: 1140px;     
     margin: 0 auto;        
     padding: 0 20px;       
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
-
 /*------------------------------HEADER-----------------------------------*/
 .header{
-    position:absolute;
     left: 0;
     top: 0;
     width: 100%;
@@ -128,6 +127,79 @@ html{
 }
 
 /*-------------------------------------------------------------------------------------*/
+
+
+
+
+
+/*-----------------------------------FOOTER---------------------------------------------*/
+.footer {
+    background-color: #111;
+    color: #ddd;
+    padding: 40px 20px;
+    font-size: 14px;
+}
+
+.footer__container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer__about,
+.footer__links,
+.footer__contact {
+    flex: 1 1 300px;
+}
+
+.footer__title {
+    font-size: 18px;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.footer__subtitle {
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.footer__links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer__links a {
+    color: #bbb;
+    text-decoration: none;
+}
+
+.footer__links a:hover {
+    color: #fff;
+}
+
+.footer__bottom {
+    text-align: center;
+    border-top: 1px solid #333;
+    margin-top: 30px;
+    padding-top: 10px;
+    font-size: 13px;
+    color: #888;
+}
+
+.footer__bottom a {
+    color: #aaa;
+    text-decoration: none;
+}
+.footer__bottom a:hover {
+    color: #fff;
+}
+
+
+/*-----------------------------------------------------------------------------------*/
 
 
 
@@ -206,7 +278,6 @@ html{
 
 .content{
      color: #737077;
-     margin-top: 80px;
 }
 
 .banner {
@@ -231,12 +302,7 @@ html{
     display: flex;
     align-items: center;
 }
-.container{
-    max-width: 1140px;     
-    margin: 0 auto;        
-    padding: 0 20px;       
-    box-sizing: border-box;
-}
+
 .banner__title {
     color: #fff;
 }
