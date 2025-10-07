@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="logowanie.css">
+    <title>Logowanie</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="auth_2">
-  <h2 class="auth__title">Rejestracja</h2>
+  {% include "header.html" %}
+<div class="main-container">
+  <div class="auth">
+  <h2 class="auth__title">Logowanie</h2>
 
-  <form class="auth__form_2">
-   
+  <form class="auth__form_1">
+    
 
     <div class="auth__field">
       <label class="auth__label" for="email">Email:</label>
@@ -23,19 +25,16 @@
       <input class="auth__input" type="password" id="password">
     </div>
 
-    <div class="auth__field">
-      <label class="auth__label" for="password">Powtórz hasło:</label>
-      <input class="auth__input" type="password" id="password">
-    </div>
-
-    <div class="auth__registration-actions">
-      <button class="button auth__button" type="button">
+    <div class="auth__login-actions">
+      <a class="button auth__button" href="{{ url_for('registration') }}"> 
         Utwórz konto
+      </a>
+      <button class="button auth__button" type="button">
+        Zalogować się
       </button>
-      
-      
     </div>
   </form>
+</div>
 </div>
 </body>
 </html>

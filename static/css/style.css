@@ -40,8 +40,8 @@ table {
 html{
     font-family: "Mulish", sans-serif;
     background-color: #f0f3f2;
-    height: 40000px;
 }
+
 .button{
     padding: 15px 40px;
     background-color: #9f7030;
@@ -57,6 +57,14 @@ html{
     background-color: #b1aca9;
     color: #000;
 }
+
+.main-container {
+    max-width: 1140px;     
+    margin: 0 auto;        
+    padding: 0 20px;       
+    box-sizing: border-box; 
+}
+
 
 .header{
     position:absolute;
@@ -116,4 +124,66 @@ html{
     margin: 0 auto;       
     padding: 0 20px;   
     box-sizing: border-box; 
+}
+
+.auth {
+  margin: 300px auto;
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  width: 400px;
+  min-height: 330px;
+}
+
+.auth__title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.auth__field {
+  margin-bottom: 15px;
+}
+
+.auth__label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.auth__input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.auth__login-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top:20px;
+}
+
+.auth__registration-actions {
+  display: flex;
+  justify-content: center;
+  margin-top:20px;
+}
+
+
+.auth__button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size:14px;
+}
+
+.auth__button-create {
+  background: #6c757d;
+  color: white;
+}
+
+.auth__button-login {
+  font-size: 15px;
 }
