@@ -75,7 +75,7 @@ html{
     height: 80px;
     display: flex;
     justify-content: space-between;
-    background-color: #aa853a;
+    background-color: #f0c060;
 }
 
 .logo{
@@ -273,6 +273,129 @@ html{
 
 
 
+/*---------------------------------------INDEX--------------------------------------------------*/
+
+p{
+    color: #737077;
+}
+
+.section-1__container {
+  display: flex;
+  align-items: center;        
+  justify-content: center; 
+}
+
+.section-1__image {
+  width: 50%;
+  height: 500px;
+}
+
+
+.section-1__right-part{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 50%;
+  height: 300px;
+}
+
+.section-1__text h1{
+  margin-bottom: 20px;
+  font-weight: 900;
+  color: #000;
+}
+
+.section-1__buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.section-1__button {
+  display: inline-flex; 
+  align-items: center;
+  justify-content: center;
+  min-width: 220px;     
+  white-space: nowrap;  
+}
+.section-2__lists ul {
+  list-style: none; 
+  padding: 0;
+  float: left;
+}
+
+.section-2__lists li::before {
+  content: "✔";      
+  font-weight: 900;
+  margin-right: 10px; 
+  float: left;
+  color: #9f7030;
+}
+
+.section-2{
+    background-color: #f0c060;
+    height: 425px;
+    padding: 35px;
+}
+
+.section-2__container{
+    display: flex;
+    justify-content: space-between;
+}
+.section-2__action{
+    width: 500px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+.section-2__action img{
+    width: 350px;
+    border-radius: 50px;
+}
+.section-2 p{
+    color: #737077;
+}
+
+.section-2 h3 {
+font-weight: 900;
+    color: #9f7030;
+}
+.section-2 h2, .section-3 h2{
+    color: #81571d;
+    font-weight: 900;
+}
+
+
+.section-3__button{
+   float: right;
+   
+}
+
+.section-3 {
+  background-color: #737077;
+  height: 500px;
+  display: flex;                
+  justify-content: center;     
+  align-items: center;                 
+}
+
+.section-3__container{
+  display: flex;                
+  justify-content: center;     
+  align-items: center;         
+}
+
+.section-3__onas {
+  width: 500px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px 40px 36px;
+  box-shadow: 0 14px 40px rgba(0,0,0,0.08);
+}
+
+/*----------------------------------------------------------------------------------------------*.
+
+
 /*---------------------------------------ABOUT-US----------------------------------------------*/
 
 
@@ -311,11 +434,6 @@ html{
 
     width: 750px;
     text-align: center;
-}
-
-.banner__logo img {
-    width: 220px;
-    margin-bottom: 10px;
 }
 
 .banner__column h1 {
