@@ -502,58 +502,103 @@ font-weight: 900;
 /*--------------------------------CUSTOMER-PANEL---------------------------*/
 
 .customer-panel{
-
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 700px;
 }
-
 .customer-panel__container{
-
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  height: 100%;
+  width: 1140px;
 }
-
+.customer-panel__name{
+  color: #f0c060 ;
+}
 .customer-panel__title{
-
+  text-align: center;
+  font-size: 25px;
 }
-
+.customer-panel__inwestments{
+  background: #f9f9f9;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+  align-self: flex-start;
+  height: 350px;
+}
 .customer-panel__information{
-
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 80px;
 }
-
-.customer-panel__fields{
-
+.customer-panel__username{
+  display: flex;
+  flex-direction: row;
+  margin: 20px 0px 0px 0px;
 }
-
 .customer-panel__email{
-
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0px 0px 0px;
 }
-
+.customer-panel__password{
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0px 0px 0px;
+}
 .field{
-
+    height: 40px;
+    border-radius: 6px;
+    border: 2px grey solid;
+    opacity: 0.7;
+    width: 300px;
+    background-color: #f0eeee;
 }
 
 .field-button{
-
+  height: 40px;
+  width: 120px;
+  cursor: pointer;
+  padding: 0px 0px 0px 0px;
 }
 
-.customer-panel__username-field{
-
+.field-button:active{
+  opacity: 0.8;
 }
 
 .customer-panel__username-button{
-
+  margin-left: 10px;
 }
 
-.customer-panel__email-field{
-
+.customer-panel__article{
+  max-width: 430px;
+  margin: 10px 0px;
 }
-
 .customer-panel__email-button{
-
+  margin-left: 10px;
 }
-
-.customer-panel__password-field{
-
-}
+.customer-panel__button{
+  margin-top: 30px;
+} 
 
 .customer-panel__password-button{
-
+  margin-left: 10px;
 }
-canvas { width: 100%; max-width: 800px; height: 400px; }
+canvas { width: 100%; max-width: 600px; height: 240px; }
+.customer-panel__text{
+  margin-top: 20px;
+}
+.customer-panel__action{
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+}
+.customer-panel__action-button--invest,.customer-panel__action-button--withdraw{
+  height: 45px;
+}

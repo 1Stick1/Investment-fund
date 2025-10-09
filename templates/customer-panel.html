@@ -11,35 +11,58 @@
   <main class="customer-panel">
     <div class="customer-panel__container container">
       <div class="customer-panel__title">
-        <h1>Witaj smieciu!!</h1>
+        <h1>Witaj <span class="customer-panel__name">smieciu!!</span></h1>
       </div>
       <div class="customer-panel__information">
         <div class="customer-panel__fields">
           <div class="customer-panel__username">
-            <input class="customer-panel__username-field field" value="Smiecie" type="text" disabled>
+            <input class=" field" value="Smiecie" type="text" >
             <br>
             <button class="customer-panel__username-button field-button button">Zmień imię</button>
           </div>
 
           <div class="customer-panel__email">
-            <input class="customer-panel__email-field field" value="Smiecie@huj.dup" type="email" disabled>
+            <input class="field" value="Smiecie@huj.dup" type="email" >
             <br>
             <button class="customer-panel__email-button field-button button">Zmień maila</button>
           </div>
 
           <div class="customer-panel__password">
-            <input class="customer-panel__password-field field" value="Smiecie" type="password" disabled>
+            <input class="field" value="Smiecie" type="password" >
             <br>
             <button class="customer-panel__password-button field-button button">Zmień hasło</button>
           </div>
+          <div class="customer-panel__text">
+            <h4>Informacja konta</h4>
+            <p class="customer-panel__article">Tutaj możesz zmienić swoje podstawowe dane. Każda zmiana wymaga potwierdzenia e-mailem.</p>
+          </div>
+          <form action="" method="get">
+        <button class="customer-panel__button field-button button ">Wyjść</button>
+      </form>
         </div>
         <div class="customer-panel__inwestments">
-          <h2>История стоимости портфеля</h2>
+          <h2>Historia wartości portfela</h2>
           <canvas id="portfolioChart"></canvas>
+          <div class="customer-panel__action">
+        <button class="customer-panel__action-button--invest field-button button">Invest</button>
+        <button class="customer-panel__action-button--withdraw field-button button">Withdraw</button>
       </div>
+
+      </div>
+      
+      
+
+      
     </div>
   </main>
 
+
+
+
+
+
+
+  
 <script>
     async function loadPortfolio(userId) {
   const resp = await fetch(`/api/portfolio/${userId}`);
