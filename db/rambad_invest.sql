@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 06, 2025 at 02:09 PM
+-- Generation Time: Oct 09, 2025 at 12:20 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -43,12 +43,12 @@ CREATE TABLE `investment` (
 --
 
 CREATE TABLE `transactions` (
-  `id` int(20) UNSIGNED NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `type` varchar(10) NOT NULL CHECK (`type` in ('deposit','withdraw')),
-  `amount` decimal(12,2) NOT NULL,
-  `currency` varchar(3) NOT NULL CHECK (`currency` = 'PLN'),
-  `date` timestamp NOT NULL DEFAULT current_timestamp()
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `date` text DEFAULT NULL,
+  `symbol` text DEFAULT NULL,
+  `quantity` double DEFAULT NULL,
+  `price` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -81,7 +81,7 @@ ALTER TABLE `investment`
 --
 ALTER TABLE `transactions`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_trans_users` (`user_id`);
+  ADD KEY `fk_trans_user` (`user_id`);
 
 --
 -- Indexes for table `users`
@@ -105,7 +105,7 @@ ALTER TABLE `investment`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -127,7 +127,7 @@ ALTER TABLE `investment`
 -- Constraints for table `transactions`
 --
 ALTER TABLE `transactions`
-  ADD CONSTRAINT `fk_trans_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `fk_trans_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
