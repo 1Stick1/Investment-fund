@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Twoje konto</title>
+  <link rel="stylesheet" href="../static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="{{ url_for('static', filename='chart.js') }}"></script>
+</head>
+<body>
+  <main class="customer-panel">
+    <div class="customer-panel__container container">
+      <div class="customer-panel__title">
+        <h1>Witaj smieciu!!</h1>
+      </div>
+      <div class="customer-panel__information">
+        <div class="customer-panel__fields">
+          <div class="customer-panel__username">
+            <input class="customer-panel__username-field field" value="Smiecie" type="text" disabled>
+            <br>
+            <button class="customer-panel__username-button field-button button">Zmień imię</button>
+          </div>
+
+          <div class="customer-panel__email">
+            <input class="customer-panel__email-field field" value="Smiecie@huj.dup" type="email" disabled>
+            <br>
+            <button class="customer-panel__email-button field-button button">Zmień maila</button>
+          </div>
+
+          <div class="customer-panel__password">
+            <input class="customer-panel__password-field field" value="Smiecie" type="password" disabled>
+            <br>
+            <button class="customer-panel__password-button field-button button">Zmień hasło</button>
+          </div>
+        </div>
+        <div class="customer-panel__inwestments">
+          <h2>История стоимости портфеля</h2>
+          <canvas id="portfolioChart"></canvas>
+      </div>
+    </div>
+  </main>
+
+<script>
+    async function loadPortfolio(userId) {
+  const resp = await fetch(`/api/portfolio/${userId}`);
+  const data = await resp.json();
+  const ctx = document.getElementById("portfolioChart");
+
+  new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: data.dates,
+      datasets: [{
+        label: "Стоимость портфеля",
+        data: data.values,
+        borderWidth: 2,
+        fill: false,
+        tension: 0.2,
+      }]
+    },
+    options: {
+      scales: {
+        y: { beginAtZero: false }
+      }
+    }
+  });
+}
+
+// Пример: грузим данные пользователя с id=1
+loadPortfolio(1);
+</script>
+
+</body>
+</html>
