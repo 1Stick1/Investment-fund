@@ -8,7 +8,12 @@
              <div class="header__list-element"><a class="link" href="{{ url_for('about_us') }}">O nas</a></div>
         </div>
         <div class="header__login">
-            <div class="header__login-button"><a class="button" href="{{ url_for('login') }}">Login</a></div>
+            {% if session.get('user_id') %}
+                <p><a class="header__username" href="{{ url_for('customer_panel') }}">| {{ session.get('username') }} |</a></p>
+            {% else %}
+                <div class="header__login-button"><a class="button" href="{{ url_for('login') }}">Login</a></div>
+            {% endif %}
+            
         </div>
     </header>
 

@@ -16,34 +16,53 @@
     <div class="auth">
   <h2 class="auth__title">Rejestracja</h2>
 
-  <form class="auth__form_2">
-   
+  <form class="auth__form_2" method="POST" action="/register">
 
     <div class="auth__field">
       <label class="auth__label" for="email">Email:</label>
-      <input class="auth__input" type="email" id="email">
+      <input class="auth__input" name="email" type="email" id="email" required>
+    </div>
+
+    <div class="auth__field">
+      <label class="auth__label" for="username">Imię:</label>
+      <input class="auth__input" name="username" type="text" id="username" required>
     </div>
 
     <div class="auth__field">
       <label class="auth__label" for="password">Hasło:</label>
-      <input class="auth__input" type="password" id="password">
+      <input class="auth__input" name="password" type="password" id="password" required>
     </div>
 
     <div class="auth__field">
       <label class="auth__label" for="password">Powtórz hasło:</label>
-      <input class="auth__input" type="password" id="password">
+      <input class="auth__input" type="password" id="password-again" required>
     </div>
 
     <div class="auth__registration-actions">
-      <button class="button auth__button" type="button">
+      <button class="button auth__button" type="submit">
         Utwórz konto
       </button>
-      
-      
     </div>
   </form>
 </div>
 </div>
+
+
+
+<style>
+.flash {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.flash.success { background-color: #c7ffd8; color: #065f46; }
+.flash.error { background-color: #ffd6d6; color: #b91c1c; }
+</style>
+
+
+
 
 {% include "footer.html" %}
 </body>

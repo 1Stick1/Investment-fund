@@ -1,20 +1,61 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify, flash, session
+import db
+from werkzeug.security import generate_password_hash, check_password_hash
+
 import yfinance as yf
 import datetime
 
 app = Flask(__name__)
+app.secret_key = 'supersecretkey'
+
 
 @app.route("/")
 def index():
     return render_template("index.html")
 
-@app.route("/login")
+@app.route("/logout")
+def logout():
+    session.clear()
+    flash('Вы вышли из аккаунта', 'success')
+    return redirect(url_for('index'))
+
+@app.route("/login", methods=['GET', 'POST'])
 def login():
+    if 'user_id' in session:
+        return redirect(url_for('index'))
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+
+        user = db.get_user_by_email(email)
+        if user and check_password_hash(user['password'], password):
+            session['user_id'] = user['id']
+            session['username'] = user['username']
+            flash('Correct', 'succes')
+            return redirect(url_for('customer_panel'))
+        else:
+            flash('Not Correct', 'error')
+            return redirect(url_for("login"))
+        
     return render_template("login.html")
 
-@app.route("/registration")
-def registration():
-    return render_template("registration.html")
+@app.route("/register", methods=['GET', 'POST'])
+def register():
+    if 'user_id' in session:
+        return redirect(url_for('index'))
+    if request.method == 'POST':
+        email = request.form['email']
+        username = request.form['username']
+        password = request.form['password']
+        
+        hashed_password = generate_password_hash(password)
+        try:
+            db.add_user(email, username, hashed_password)
+            return redirect(url_for('index'))
+        except Exception as e:
+            return redirect(url_for('register'))
+    
+    return render_template("register.html")
 
 @app.route("/about_us")
 def about_us():
@@ -23,22 +64,62 @@ def about_us():
 
 @app.route("/customer_panel")
 def customer_panel():
-    return render_template("customer-panel.html")
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    username = session['username']
+    return render_template("customer-panel.html", username=username)
 
+
+# @app.route("/data")
+# def data():
+#     # Добавляем новую точку
+#     now = datetime.datetime.now().strftime("%H:%M:%S")
+#     value = random.randint(1000, 5000)
+#     data_points.append({"time": now, "value": value})
+    
+#     # Оставляем только последние 10 точек
+#     if len(data_points) > 10:
+#         data_points.pop(0)
+    
+#     return jsonify(data_points)
+
+
+data_points = []
+
+@app.route("/test")
+def test():
+    return render_template("test.html")
 
 @app.route("/data")
 def data():
-    # Добавляем новую точку
-    now = datetime.datetime.now().strftime("%H:%M:%S")
-    value = random.randint(1000, 5000)
-    data_points.append({"time": now, "value": value})
-    
-    # Оставляем только последние 10 точек
-    if len(data_points) > 10:
-        data_points.pop(0)
-    
-    return jsonify(data_points)
+    usa_stock = yf.Ticker("^GSPC")  
+    eu_bonds = yf.Ticker("^STOXX50E")   
 
+    usa_hist = usa_stock.history(period="1d", interval="5m")
+    eu_hist = eu_bonds.history(period="1d", interval="5m")
+
+    # Перевіряємо наявність даних
+    if usa_hist.empty or eu_hist.empty:
+        return jsonify({"error": "No data available"}), 500
+    print("USA history:")
+    print(usa_hist.tail())
+    print("EU history:")
+    print(eu_hist.tail())
+
+    usa_price = usa_hist["Close"].iloc[-1]
+    eu_price = eu_hist["Close"].iloc[-1]
+
+    now = datetime.datetime.now().strftime("%d %b %H:%M")
+    data_points.append({
+        "time": now,
+        "usa": round(float(usa_price), 2),
+        "eu": round(float(eu_price), 2)
+    })
+
+    if len(data_points) > 100:
+        data_points.pop(0)
+
+    return jsonify(data_points)
 
 if __name__ == "__main__":
     app.run(debug=True)

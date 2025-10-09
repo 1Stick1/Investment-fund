@@ -118,7 +118,15 @@ html{
     align-items: center;
     width: 200px;
 }
-
+.header__username{
+  color: #000;
+  font-size: 18px;
+  font-weight: 900;
+}
+.header__username:hover{
+  color: #b1aca9;
+    transition: 0.2s all ease;
+}
 .main-container {
     max-width: 1140px;    
     margin: 0 auto;       
@@ -602,3 +610,4 @@ canvas { width: 100%; max-width: 600px; height: 240px; }
 .customer-panel__action-button--invest,.customer-panel__action-button--withdraw{
   height: 45px;
 }
+

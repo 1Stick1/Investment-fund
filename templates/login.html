@@ -12,31 +12,50 @@
   <div class="auth">
   <h2 class="auth__title">Logowanie</h2>
 
-  <form class="auth__form_1">
+  <form class="auth__form_1" method="POST" action="/login">
     
 
     <div class="auth__field">
       <label class="auth__label" for="email">Email:</label>
-      <input class="auth__input" type="email" id="email">
+      <input class="auth__input" name="email" type="email" id="email">
     </div>
 
     <div class="auth__field">
       <label class="auth__label" for="password">Hasło:</label>
-      <input class="auth__input" type="password" id="password">
+      <input class="auth__input" name="password" type="password" id="password">
     </div>
 
     <div class="auth__login-actions">
-      <a class="button auth__button" href="{{ url_for('registration') }}"> 
+      <a class="button auth__button" href="{{ url_for('register') }}"> 
         Utwórz konto
       </a>
-      <button class="button auth__button" type="button">
+      <button class="button auth__button" type="submit">
         Zalogować się
       </button>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="flash {{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
     </div>
   </form>
 </div>
 </div>
+<style>
+.flash {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.flash.success { background-color: #c7ffd8; color: #065f46; }
+.flash.error { background-color: #ffd6d6; color: #b91c1c; }
+</style>
 
 {% include "footer.html" %}
 </body>
 </html>
+
