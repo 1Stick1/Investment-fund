@@ -418,7 +418,7 @@ font-weight: 900;
     justify-content: center;
     padding: 60px 0;
     background: #737077;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://cdn.discordapp.com/attachments/1424686537458581578/1425065801827745863/GTDG_5.jpg?ex=68e63b73&is=68e4e9f3&hm=389f2b54b9081832409bbd81350ef995cc3d25be28a4bb1586d6652f6e6f37ab&);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/background_about-us.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     text-align: center;

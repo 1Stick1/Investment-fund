@@ -3,12 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Twoje konto</title>
-<<<<<<< HEAD
+
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-=======
-  <link rel="stylesheet" href="../static/css/style.css">
-  <link rel="shortcut icon" href="{{ url_for('static', filename='images/black_schedule.png') }}" type="image/x-icon">
->>>>>>> dd19a5f09cecc6970b65cec03b914ebd533592af
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/x-icon">
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="{{ url_for('static', filename='chart.js') }}"></script>
 </head>
@@ -24,23 +22,34 @@
       <div class="customer-panel__information">
         <div class="customer-panel__fields">
 
-          <form class="customer-panel__username">
-            <input class=" field" value="{{ session.get('username') }}" type="text" >
+          <form class="customer-panel__username" action="{{ url_for('update_username') }}" method="POST">
+            <input class="field" value="{{ session.get('username') }}" type="text" name="username">
             <br>
-            <button class="customer-panel__username-button field-button button">Zmień imię</button>
+            <button type="submit" class="customer-panel__username-button field-button button">Zmień imię</button>
           </form>
 
-          <form class="customer-panel__email">
-            <input class="field" value="{{ session.get('email') }}" type="email" >
+          <form class="customer-panel__email" action="{{ url_for('update_email') }}"  method="POST">
+            <input class="field" value="{{ session.get('email') }}" type="email" name="email" >
             <br>
-            <button class="customer-panel__email-button field-button button">Zmień maila</button>
+            <button type="submit" class="customer-panel__email-button field-button button">Zmień maila</button>
           </form>
 
+          
           <form class="customer-panel__password">
             <input class="field" value="************" type="password" >
             <br>
             <button class="customer-panel__password-button field-button button">Zmień hasło</button>
           </form>
+          <br>
+          {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul>
+      {% for msg in messages %}
+        <li>{{ msg }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
           <div class="customer-panel__text">
             <h4>Informacja konta</h4>
             <p class="customer-panel__article">Tutaj możesz zmienić swoje podstawowe dane. Każda zmiana wymaga potwierdzenia e-mailem.</p>

@@ -58,6 +58,42 @@ def register():
     
     return render_template("register.html")
 
+@app.route('/update_email', methods=['GET', 'POST'])
+def update_email():
+    if 'user_id' not in session:
+        flash("Пожалуйста, войдите в систему")
+        return redirect(url_for('login'))
+
+    user_id = session['user_id']
+
+    if request.method == 'POST':
+        new_email = request.form.get('email').strip()
+        
+        if not new_email:
+            flash("Email nie może być pusty")
+            return redirect(url_for('update_email'))
+
+        db.update_user_email(user_id, new_email)
+        flash("Adres e-mail został pomyślnie zaktualizowany")
+        return redirect(url_for('customer_panel'))
+
+@app.route('/update_username', methods=['GET', 'POST'])
+def update_username():
+    user_id = session['user_id']
+
+    if request.method == 'POST':
+        new_username = request.form.get('username').strip()
+        
+        if not new_username:
+            flash("Imię nie może być puste")
+            return redirect(url_for('update_username'))
+
+        db.update_user_username(user_id, new_username)
+        flash("Imię zostało pomyślnie zaktualizowane")
+        session['username'] = new_username
+        return redirect(url_for('customer_panel'))
+
+
 @app.route("/about_us")
 def about_us():
     return render_template("about_us.html")
@@ -97,7 +133,6 @@ def load_initial_data():
     eu_hist = eu_bonds.history(period="70d", interval="1h")
 
     if usa_hist.empty or eu_hist.empty:
-        print("⚠️ No initial data found.")
         return []
 
     points = []
