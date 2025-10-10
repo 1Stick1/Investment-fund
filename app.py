@@ -68,7 +68,9 @@ def customer_panel():
         return redirect(url_for('login'))
     username = session['username']
     return render_template("customer-panel.html", username=username)
-
+@app.route("/calculator")
+def calculator():
+    return render_template("calculator.html")
 
 # @app.route("/data")
 # def data():

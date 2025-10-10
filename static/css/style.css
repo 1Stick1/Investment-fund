@@ -611,3 +611,80 @@ canvas { width: 100%; max-width: 600px; height: 240px; }
   height: 45px;
 }
 
+
+
+
+.section-1__fields {
+    display: flex;
+}
+
+.calculator {
+    max-width: 800px;
+    margin: 40px auto;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 30px 40px
+}
+
+.section-1__button_1 {
+    justify-content: center;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 25px;
+    color: #9f7030;
+}
+
+.section-1__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.section1__fields-container-1,
+.section1__fields-container-2 {
+    display: flex;
+    gap: 20px;
+}
+
+.section-1__field-1,
+.section-1__field-2,
+.section-1__field-3,
+.section-1__field-4 {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #b1aca9;
+    margin-bottom: 8px;
+}
+
+input[type="text"], select {
+    color: #b58222;
+    padding: 10px 14px;
+    border: 1px solid #d3d3d3;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="text"]:focus, select:focus {
+    outline: none;
+    border-color: #f0c060;
+    box-shadow: 0 0 4px 4px rgba(240, 192, 96, 0.25);
+}
+
+.section-1__button_1 {
+    text-align: center;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 45px;
+}
