@@ -32,28 +32,11 @@
       <button class="button auth__button" type="submit">
         Zalogować się
       </button>
-            {% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    {% for category, message in messages %}
-      <div class="flash {{ category }}">{{ message }}</div>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
     </div>
   </form>
 </div>
 </div>
-<style>
-.flash {
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
 
-.flash.success { background-color: #c7ffd8; color: #065f46; }
-.flash.error { background-color: #ffd6d6; color: #b91c1c; }
-</style>
 
 {% include "footer.html" %}
 </body>

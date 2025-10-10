@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Inwestycji</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+</head>
+<body>
+  {% include "header.html" %}
+    <main>
+        <div class="main-banner">
+        <div class="main-banner__container container">
+            <div class="kpi">
+                <p><strong>Wartość aktywów netto</strong></p>
+                <h3>107.70 mln PLN</h3>
+                <p>Stan na 02.10.2025</p>
+            </div>
+            <div class="kpi">
+                <p><strong>Wartość na 1 certyfikat</strong></p>
+                <h3>311.67 PLN</h3>
+                <p>Zmiana dzienna: <span>+0.21%</span></p>
+            </div>
+            <div class="kpi">
+                <p><strong>Dochód (ostatnie 365 dni)</strong></p>
+                <h3>+15.83%</h3>
+                <p>Benchmark: 60/40</p>
+            </div>
+            </div>
+        </div>
+        <div class="main-middle">
+            <div class="main-middle__container container">
+            <div class="fund-wallet">
+                <h2>Portfel funduszu</h2>   
+                <p>Za danymi na dziś</p>
+                <canvas id="fundWalletChart" width="400" height="400"></canvas>
+                <script>
+                    const ctx = document.getElementById('fundWalletChart').getContext('2d');
+                    const fundWalletChart = new Chart(ctx, {
+                    type: 'pie', 
+                    data: {
+                        labels: ['Akcje S&P 500 (USA)', 'Obligacje Bund (EU)'],
+                        datasets: [{
+                            data: [40, 60],
+                            backgroundColor: ['#f0c060', '#9f7030'],
+                            borderWidth: 0,
+                            borderColor: 'transparent' 
+                        }]
+                    },
+                    options: {
+                        responsive: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        }
+                    }
+                    });
+                </script>
+                <div class="legend-row">
+                    <div class="legend-circle" style="background: #f0c060; margin: 15px 0;"></div>
+                    <p style="margin: 15px 5px;">Akcje S&P 500 (USA) - 40%</p>
+                </div>
+                <div class="legend-row">
+                    <div class="legend-circle" style="background: #9f7030;"></div>
+                    <p style="margin: 0 5px;">Obligacje Bund (EU) - 60%</p>
+                </div>
+            </div>
+
+            <div class="risks">             
+                <section class="panel panel__risk">
+    <div class="panel__risk">
+  <h2 class="panel__title">Profil ryzyka funduszu</h2>
+<br>
+  <div class="panel__risk-level">
+    <span>Poziom ryzyka</span>
+    <p>Umiarkowany</p>
+  </div>
+<br>
+  <div class="panel__risk-boxs">
+    <div class="panel__risk_box-1 panel__risk-box">1</div>
+    <div class="panel__risk_box-2 panel__risk-box">2</div>
+    <div class="panel__risk_box-3 panel__risk-box box-active">3</div>
+    <div class="panel__risk_box-4 panel__risk-box">4</div>
+    <div class="panel__risk_box-5 panel__risk-box">5</div>
+    <div class="panel__risk_box-6 panel__risk-box">6</div>
+    <div class="panel__risk_box-7 panel__risk-box">7</div>
+  </div>
+</section>
+<br>
+  <p class="panel__text">
+    Wskazany poziom ryzyka nie musi pozostawać niezmienny i może ulegać zmianom w czasie.<br>
+Zwracamy również uwagę inwestorów na fakt, że najniższy poziom nie stanowi inwestycji całkowicie pozbawionej ryzyka.
+  </p>
+</div>
+               
+            </div>
+
+            </div>
+
+        </div>
+
+
+<div id="chart-container" class="shedule">
+    <div class="shedule__container container">
+    <h1 class="shedule__title">Aktualne inwestycje: USA vs Europa</h1>
+    <div class="shedule__prices">
+                <div class="shedule__price-box">
+                    <span class="shedule__symbol">🇺🇸 S&P 500:</span>
+                    <span id="usaValue" class="shedule__value">—</span>
+                </div>
+
+            <div class="shedule__price-box">
+                <span class="shedule__symbol">🇪🇺 STOXX 50 (UE):</span>
+                <span id="euValue" class="shedule__value">—</span>
+            </div>
+    </div>
+    <canvas id="investmentChart"></canvas>
+    </div>
+</div>
+
+
+
+
+<script>
+const atx = document.getElementById('investmentChart').getContext('2d');
+
+const investmentChart = new Chart(atx, {
+    type: 'line',
+    data: {
+        labels: [],
+        datasets: [
+            {
+                label: 'S&P 500 (USA)',
+                data: [],
+                borderColor: '#d9a441',
+                backgroundColor: 'rgba(217,164,65,0.15)',
+                borderWidth: 3,
+                tension: 0.4,
+                fill: true
+            },
+            {
+                label: 'Bund (Europa)',
+                data: [],
+                borderColor: '#3b82f6',
+                backgroundColor: 'rgba(59,130,246,0.15)',
+                borderWidth: 3,
+                tension: 0.4,
+                fill: true
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        animation: {
+            duration: 1000,
+            easing: 'easeOutCubic'
+        },
+        plugins: {
+            legend: {
+                labels: { color: '#333', font: { size: 14 } }
+            }
+        },
+        scales: {
+            x: {
+                ticks: { color: '#555', font: { size: 12 } },
+                grid: { color: '#eee' }
+            },
+            y: {
+                ticks: { color: '#555', font: { size: 12 } },
+                grid: { color: '#eee' },
+                beginAtZero: false
+            }
+        }
+    }
+});
+
+let prevUSA = null;
+let prevEU = null;
+
+async function updateChart() {
+    const response = await fetch("/data");
+    const newData = await response.json();
+
+    investmentChart.data.labels = newData.map(p => p.time);
+    investmentChart.data.datasets[0].data = newData.map(p => p.usa);
+    investmentChart.data.datasets[1].data = newData.map(p => p.eu);
+    investmentChart.update();
+
+    const lastPoint = newData[newData.length - 1];
+    const usaVal = document.getElementById("usaValue");
+    const euVal = document.getElementById("euValue");
+
+    usaVal.textContent = lastPoint.usa.toFixed(2);
+    euVal.textContent = lastPoint.eu.toFixed(2);
+
+    if (prevUSA !== null) {
+        usaVal.className = "value " + (lastPoint.usa > prevUSA ? "up" : "down");
+    }
+    if (prevEU !== null) {
+        euVal.className = "value " + (lastPoint.eu > prevEU ? "up" : "down");
+    }
+
+    prevUSA = lastPoint.usa;
+    prevEU = lastPoint.eu;
+}
+
+updateChart();
+setInterval(updateChart, 10000);
+</script>
+        </div>
+
+    </main>
+    
+    {% include "footer.html" %}
+
+</body>
+</html>
+
+
+
+
+
+
+
