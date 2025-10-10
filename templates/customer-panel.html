@@ -9,62 +9,70 @@
   <script src="{{ url_for('static', filename='chart.js') }}"></script>
 </head>
 <body>
+  {% include "header.html" %}
+
+
   <main class="customer-panel">
     <div class="customer-panel__container container">
       <div class="customer-panel__title">
-        <h1>Witaj <span class="customer-panel__name">smieciu!!</span></h1>
+        <h1>Witaj <span class="customer-panel__name">{{ session.get('username') }}!!</span></h1>
       </div>
       <div class="customer-panel__information">
         <div class="customer-panel__fields">
-          <div class="customer-panel__username">
-            <input class=" field" value="Smiecie" type="text" >
-            <br>
-            <button class="customer-panel__username-button field-button button">Zmień imię</button>
-          </div>
 
-          <div class="customer-panel__email">
-            <input class="field" value="Smiecie@huj.dup" type="email" >
+          <form class="customer-panel__username" action="{{ url_for('update_username') }}" method="POST">
+            <input class="field" value="{{ session.get('username') }}" type="text" name="username">
             <br>
-            <button class="customer-panel__email-button field-button button">Zmień maila</button>
-          </div>
+            <button type="submit" class="customer-panel__username-button field-button button">Zmień imię</button>
+          </form>
 
-          <div class="customer-panel__password">
-            <input class="field" value="Smiecie" type="password" >
+          <form class="customer-panel__email" action="{{ url_for('update_email') }}"  method="POST">
+            <input class="field" value="{{ session.get('email') }}" type="email" name="email" >
+            <br>
+            <button type="submit" class="customer-panel__email-button field-button button">Zmień maila</button>
+          </form>
+
+          
+          <form class="customer-panel__password">
+            <input class="field" value="************" type="password" >
             <br>
             <button class="customer-panel__password-button field-button button">Zmień hasło</button>
-          </div>
+          </form>
+          <br>
+          {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul>
+      {% for msg in messages %}
+        <li>{{ msg }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
           <div class="customer-panel__text">
             <h4>Informacja konta</h4>
             <p class="customer-panel__article">Tutaj możesz zmienić swoje podstawowe dane. Każda zmiana wymaga potwierdzenia e-mailem.</p>
           </div>
-          <form action="" method="get">
-        <button class="customer-panel__button field-button button ">Wyjść</button>
-      </form>
+
+          <form action="{{ url_for('logout') }}" method="get">
+            <button class="customer-panel__button field-button button ">Wyjść</button>
+          </form>
         </div>
         <div class="customer-panel__inwestments">
           <h2>Historia wartości portfela</h2>
-          <canvas id="portfolioChart"></canvas>
+          <canvas class="customer-panel__canvas" id="portfolioChart"></canvas>
           <div class="customer-panel__action">
         <button class="customer-panel__action-button--invest field-button button">Invest</button>
         <button class="customer-panel__action-button--withdraw field-button button">Withdraw</button>
-
       </div>
-
       </div>
-      
-      
-
-      
     </div>
+
+
+
   </main>
 
+    {% include "footer.html" %}
 
-
-
-
-
-
-  
 <script>
     async function loadPortfolio(userId) {
   const resp = await fetch(`/api/portfolio/${userId}`);
@@ -91,7 +99,6 @@
   });
 }
 
-// Пример: грузим данные пользователя с id=1
 loadPortfolio(1);
 </script>
 

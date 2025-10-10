@@ -418,7 +418,7 @@ font-weight: 900;
     justify-content: center;
     padding: 60px 0;
     background: #737077;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://cdn.discordapp.com/attachments/1424686537458581578/1425065801827745863/GTDG_5.jpg?ex=68e63b73&is=68e4e9f3&hm=389f2b54b9081832409bbd81350ef995cc3d25be28a4bb1586d6652f6e6f37ab&);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/background_about-us.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     text-align: center;
@@ -514,6 +514,7 @@ font-weight: 900;
   justify-content: center;
   align-items: flex-start;
   height: 700px;
+  margin: 100px 0;
 }
 .customer-panel__container{
   background: #fff;
@@ -598,7 +599,7 @@ font-weight: 900;
 .customer-panel__password-button{
   margin-left: 10px;
 }
-canvas { width: 100%; max-width: 600px; height: 240px; }
+.customer-panel__canvas { width: 100%; max-width: 600px; height: 240px; }
 .customer-panel__text{
   margin-top: 20px;
 }
@@ -611,6 +612,7 @@ canvas { width: 100%; max-width: 600px; height: 240px; }
   height: 45px;
 }
 
+/* ------------------------CALCULATOR------------------------------------------------------------- */
 
 
 
@@ -688,3 +690,226 @@ input[type="text"]:focus, select:focus {
     justify-content: center;
     gap: 45px;
 }
+
+/*---------------------------------------------------------------------------------*/
+
+
+
+/*-------------------------------INWESTMENTS----------------------------------------*/
+
+
+.main-banner {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.main-middle{
+  margin-bottom: 40px;
+}
+.kpi {
+    width: 30%;
+    transition: 0.3s ease ;
+}
+
+.kpi, .fund-wallet, .risks {
+    margin: 20px 0px;
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 10px 26px rgba(115, 112, 119, 0.12);
+}
+
+.kpi h3 {
+  margin: 6px 0 4px;
+  font-size: 26px;
+  font-weight: 800;
+  color: #bd7b1e;
+}
+
+.kpi p {
+    font-size: 13px;
+    color: #737077;
+}
+
+.kpi span {
+    color: #bd7b1e;
+    font-weight: 800;
+}
+
+.kpi:hover {
+    width: 310px;
+}
+.main-banner__container{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.main-middle__container{
+    display: flex;
+    justify-content: space-around;
+}
+
+.fund-wallet, .risks {
+    width: 45%;
+}
+
+.fund-wallet h2 {
+    padding: 5px 20px 5px 20px;
+    font-size: 22px;
+    font-weight: 800;
+    color: #9f7030;
+}
+
+.fund-wallet p {
+    margin: 5px 20px 20px 20px;
+    color: #737077;
+}
+
+.fund-wallet {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    background: white;
+    padding: 15px 20px 20px 20px;
+    box-shadow: 0 10px 26px rgba(115, 112, 119, 0.12);
+}
+
+.legend-circle {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.legend-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.panel__risk {
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.panel__title{
+  color: #9f7030;
+}
+
+.panel__risk-level {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.panel__risk span{
+  color: #6c757d;
+}
+
+
+.panel__risk-level p {
+  border: 1px solid #f1d34a;
+  background: #fffbe6;
+  color: #9a8600;
+  padding: 15px 20px;
+  font-size: 20px;
+  width: 70%;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.panel__risk-boxs {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 300px;
+}
+
+
+.panel__risk-box {
+  width: 55px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-weight: 700;
+  border-radius: 4px;
+  font-size: 20px;
+}
+
+.panel__text{
+  line-height: 25px;
+}
+
+.panel__risk_box-1 { background: #00a650; }
+.panel__risk_box-2 { background: #91c46c; }
+.panel__risk_box-3 { background: #ffe600;} 
+.panel__risk_box-4 { background: #ffb82e; }
+.panel__risk_box-5 { background: #ff8b00; }
+.panel__risk_box-6 { background: #ff3b30; }
+.panel__risk_box-7 { background: #c00000; }
+
+.box-active {
+    height: 80px;
+    width: 70px;
+    font-size: 25px;
+}
+
+
+
+
+.shedule {
+  background-color: #f3f4f6;
+  text-align: center;
+  color: #333;
+}
+
+        .shedule__title {
+            margin-top: 30px;
+            font-size: 28px;
+            color: #1e293b;
+        }
+
+        #chart-container {
+            width: 100%;
+            max-width: 1050px;
+            height: 600px;
+            margin: 40px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+
+        .shedule__prices {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .shedule__price-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .shedule__symbol {
+            font-weight: 600;
+        }
+
+        .shedule__value {
+            font-weight: 700;
+        }
+
+        .shedule__up {
+            color: #16a34a;
+        }
+
+        .shedule__down {
+            color: #dc2626;
+        }
+

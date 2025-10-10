@@ -3,8 +3,9 @@
         <div class="header__logo logo"><img class="logo__image" src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo"></div>
         <div class="header__menu-list">
              <div class="header__list-element"><a class="link" href="{{ url_for('index') }}">Główna</a></div>
-             <div class="header__list-element"><a class="link" href="">Inwestycji</a></div>
-             <div class="header__list-element"><a class="link" href="{{ url_for('calculator') }}">Kalkulator</a></div>
+             <div class="header__list-element"><a class="link" href="{{ url_for('inwestment')}}">Inwestycji</a></div>
+            <div class="header__list-element"><a class="link" href="{{ url_for('calculator') }}">Kalkulator</a></div>
+
              <div class="header__list-element"><a class="link" href="{{ url_for('about_us') }}">O nas</a></div>
         </div>
         <div class="header__login">

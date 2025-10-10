@@ -31,6 +31,7 @@ def login():
         if user and check_password_hash(user['password'], password):
             session['user_id'] = user['id']
             session['username'] = user['username']
+            session['email'] = user['email']
             flash('Correct', 'succes')
             return redirect(url_for('customer_panel'))
         else:
@@ -57,9 +58,49 @@ def register():
     
     return render_template("register.html")
 
+@app.route('/update_email', methods=['GET', 'POST'])
+def update_email():
+    if 'user_id' not in session:
+        flash("Пожалуйста, войдите в систему")
+        return redirect(url_for('login'))
+
+    user_id = session['user_id']
+
+    if request.method == 'POST':
+        new_email = request.form.get('email').strip()
+        
+        if not new_email:
+            flash("Email nie może być pusty")
+            return redirect(url_for('update_email'))
+
+        db.update_user_email(user_id, new_email)
+        flash("Adres e-mail został pomyślnie zaktualizowany")
+        return redirect(url_for('customer_panel'))
+
+@app.route('/update_username', methods=['GET', 'POST'])
+def update_username():
+    user_id = session['user_id']
+
+    if request.method == 'POST':
+        new_username = request.form.get('username').strip()
+        
+        if not new_username:
+            flash("Imię nie może być puste")
+            return redirect(url_for('update_username'))
+
+        db.update_user_username(user_id, new_username)
+        flash("Imię zostało pomyślnie zaktualizowane")
+        session['username'] = new_username
+        return redirect(url_for('customer_panel'))
+
+
 @app.route("/about_us")
 def about_us():
     return render_template("about_us.html")
+
+@app.route("/invwestment")
+def inwestment():
+    return render_template("inwestment.html")
 
 
 @app.route("/customer_panel")
@@ -86,21 +127,37 @@ def calculator():
 #     return jsonify(data_points)
 
 
-data_points = []
+def load_initial_data():
+    usa_stock = yf.Ticker("^GSPC")
+    eu_bonds = yf.Ticker("^STOXX50E")
 
-@app.route("/test")
-def test():
-    return render_template("test.html")
+    usa_hist = usa_stock.history(period="70d", interval="1h")
+    eu_hist = eu_bonds.history(period="70d", interval="1h")
+
+    if usa_hist.empty or eu_hist.empty:
+        return []
+
+    points = []
+    for (time, usa_row), (_, eu_row) in zip(usa_hist.iterrows(), eu_hist.iterrows()):
+        points.append({
+            "time": time.strftime("%d %b %H:%M"),
+            "usa": round(float(usa_row["Close"]), 2),
+            "eu": round(float(eu_row["Close"]), 2)
+        })
+
+    return points
+
+data_points = load_initial_data()
+
 
 @app.route("/data")
 def data():
     usa_stock = yf.Ticker("^GSPC")  
     eu_bonds = yf.Ticker("^STOXX50E")   
 
-    usa_hist = usa_stock.history(period="1d", interval="5m")
-    eu_hist = eu_bonds.history(period="1d", interval="5m")
+    usa_hist = usa_stock.history(period="7d", interval="5m")
+    eu_hist = eu_bonds.history(period="7d", interval="5m")
 
-    # Перевіряємо наявність даних
     if usa_hist.empty or eu_hist.empty:
         return jsonify({"error": "No data available"}), 500
     print("USA history:")
@@ -118,7 +175,7 @@ def data():
         "eu": round(float(eu_price), 2)
     })
 
-    if len(data_points) > 100:
+    if len(data_points) > 1000:
         data_points.pop(0)
 
     return jsonify(data_points)

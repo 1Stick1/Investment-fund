@@ -23,12 +23,6 @@ def get_user_by_email(email):
     conn.close()
     return dict(user) if user else None
 
-# def get_all_users():
-#     conn = get_connection()
-#     users = conn.execute('SELECT * FROM users').fetchall()
-#     conn.close()
-#     return [dict(u) for u in users]
-
 
 
 # def update_user(user_id, username, email, password):
@@ -36,3 +30,16 @@ def get_user_by_email(email):
 #     conn.execute('UPDATE users SET username = ?, email = ?, password = ? WHERE id = ?', (name, email, password, user_id))
 #     conn.commit()
 #     conn.close()
+
+
+def update_user_email(user_id, email):
+    conn = get_connection()
+    conn.execute('UPDATE users SET email = ? WHERE id = ?', (email, user_id))
+    conn.commit()
+    conn.close()
+    
+def update_user_username(user_id, username):
+    conn = get_connection()
+    conn.execute('UPDATE users SET username = ? WHERE id = ?', (username, user_id))
+    conn.commit()
+    conn.close()
