@@ -4,8 +4,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
  
 import sqlite3
  
+from threading import Lock
+update_lock = Lock()
+ 
+ 
 import yfinance as yf
 import datetime
+
+from apscheduler.schedulers.background import BackgroundScheduler
 
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'
@@ -54,15 +60,17 @@ def register():
         hashed_password = generate_password_hash(password)
         try:
             db.add_user(email, username, hashed_password)
+            
             flash('Konto zostało pomyślnie stworzone', 'success')
             return redirect(url_for('login'))
         except sqlite3.IntegrityError as e:
             if 'UNIQUE constraint failed: users.email' in str(e):
                 flash("Ten adres e-mail jest zajęty.", 'error')
             return redirect(url_for('register'))
-        except Exception as e:
+        except Exception as e:            
             flash("Wystąpił problem. Proszę spróbować ponownie.", 'error')
             return redirect(url_for('register'))
+        
     return render_template("register.html")
 
 @app.route('/update_email', methods=['GET', 'POST'])
@@ -106,28 +114,11 @@ def inwestment():
     return render_template("inwestment.html")
 
 
-@app.route("/customer_panel")
-def customer_panel():
-    if 'user_id' not in session:
-        return redirect(url_for('login'))
-    username = session['username']
-    return render_template("customer-panel.html", username=username)
+
 @app.route("/calculator")
 def calculator():
     return render_template("calculator.html")
 
-# @app.route("/data")
-# def data():
-#     # Добавляем новую точку
-#     now = datetime.datetime.now().strftime("%H:%M:%S")
-#     value = random.randint(1000, 5000)
-#     data_points.append({"time": now, "value": value})
-    
-#     # Оставляем только последние 10 точек
-#     if len(data_points) > 10:
-#         data_points.pop(0)
-    
-#     return jsonify(data_points)
 
 
 def load_initial_data():
@@ -163,10 +154,7 @@ def data():
 
     if usa_hist.empty or eu_hist.empty:
         return jsonify({"error": "No data available"}), 500
-    print("USA history:")
-    print(usa_hist.tail())
-    print("EU history:")
-    print(eu_hist.tail())
+
 
     usa_price = usa_hist["Close"].iloc[-1]
     eu_price = eu_hist["Close"].iloc[-1]
@@ -183,5 +171,153 @@ def data():
 
     return jsonify(data_points)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def calculate_portfolio_growth(sp500_change, bund_change):
+    return (0.6 * sp500_change) + (0.4 * bund_change)
+
+
+def update_all_portfolios():
+    if not update_lock.acquire(blocking=False):
+        return
+
+    try:
+        sp500 = yf.Ticker("^GSPC")
+        bund = yf.Ticker("^STOXX50E")
+        
+        sp500_hist = sp500.history(period="1d", interval="1m")
+        bund_hist = bund.history(period="1d", interval="1m")
+        
+        if len(sp500_hist) < 2 or len(bund_hist) < 2:
+            return
+        
+        sp500_change = (sp500_hist['Close'].iloc[-1] / sp500_hist['Close'].iloc[-2]) - 1
+        bund_change = (bund_hist['Close'].iloc[-1] / bund_hist['Close'].iloc[-2]) - 1
+        
+        portfolio_change = calculate_portfolio_growth(sp500_change, bund_change)
+        
+        if abs(portfolio_change) < 0.000001:
+            print("No significant change")
+            return
+        
+        conn = db.get_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT user_id, current_balance FROM investment WHERE current_balance > 0")
+        investments = cursor.fetchall()
+        
+        for inv in investments:
+            user_id = inv['user_id']
+            old_balance = inv['current_balance']
+            new_balance = old_balance * (1 + portfolio_change)
+            db.update_investment_balance(user_id, new_balance)
+        
+        conn.close()
+        print(f"Portfolios updated. Change: {portfolio_change*100:.4f}%")
+        
+    except Exception as e:
+        print(f"Error updating portfolios: {e}")
+    finally:
+        update_lock.release()
+
+
+@app.route('/invest', methods=['POST'])
+def invest():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    
+    try:
+        amount = float(request.form.get('amount', 0))
+        if amount <= 0:
+            flash('Сумма должна быть положительной', 'error')
+            return redirect(url_for('customer_panel'))
+        
+        new_balance = db.invest_money(session['user_id'], amount)
+        flash(f'Инвестировано ${amount:.2f}. Новый баланс: ${new_balance:.2f}', 'success')
+        
+    except Exception as e:
+        flash(f'Ошибка: {str(e)}', 'error')
+    
+    return redirect(url_for('customer_panel'))
+
+
+@app.route('/withdraw', methods=['POST'])
+def withdraw():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    
+    try:
+        amount = float(request.form.get('amount', 0))
+        if amount <= 0:
+            flash('Сумма должна быть положительной', 'error')
+            return redirect(url_for('customer_panel'))
+        
+        new_balance = db.withdraw_money(session['user_id'], amount)
+        flash(f'Выведено ${amount:.2f}. Новый баланс: ${new_balance:.2f}', 'success')
+        
+    except ValueError as e:
+        flash(str(e), 'error')
+    except Exception as e:
+        flash(f'Ошибка: {str(e)}', 'error')
+    
+    return redirect(url_for('customer_panel'))
+
+
+
+
+# Обновленный customer_panel
+@app.route("/customer_panel")
+def customer_panel():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    
+    username = session['username']
+    investment = db.get_or_create_investment(session['user_id'])
+    transactions = db.get_user_transactions(session['user_id'])
+    
+    return render_template(
+        "customer-panel.html", 
+        username=username,
+        investment=investment,
+        transactions=transactions
+    )
+
+
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(func=update_all_portfolios, trigger="interval", seconds=10)  # Каждый час
+scheduler.start()
+
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+

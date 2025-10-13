@@ -62,13 +62,39 @@
           </form>
         </div>
         <div class="customer-panel__inwestments">
-          <h2>Historia wartości portfela</h2>
-          <canvas class="customer-panel__canvas" id="portfolioChart"></canvas>
-          <div class="customer-panel__action">
-        <button class="customer-panel__action-button--invest field-button button">Invest</button>
-        <button class="customer-panel__action-button--withdraw field-button button">Withdraw</button>
-      </div>
-      </div>
+    <h2>История wartości portfela</h2>
+    
+    <div class="balance-info">
+        <p>Текущий баланс: ${{ investment.current_balance|round(2) }}</p>
+        <p>Всего инвестировано: ${{ investment.total_invested|round(2) }}</p>
+        <p>Прибыль: ${{ (investment.current_balance - investment.total_invested)|round(2) }}</p>
+    </div>
+    
+    <canvas class="customer-panel__canvas" id="portfolioChart"></canvas>
+    
+    <div class="customer-panel__action">
+        <form action="{{ url_for('invest') }}" method="post">
+            <input type="number" name="amount" step="0.01" min="0" placeholder="Сумма" required>
+            <button type="submit" class="customer-panel__action-button--invest field-button button">
+                Invest
+            </button>
+        </form>
+        
+        <form action="{{ url_for('withdraw') }}" method="post">
+            <input type="number" name="amount" step="0.01" min="0" placeholder="Сумма" required>
+            <button type="submit" class="customer-panel__action-button--withdraw field-button button">
+                Withdraw
+            </button>
+        </form>
+    </div>
+    
+    <h3>История транзакций</h3>
+    <ul>
+    {% for t in transactions %}
+        <li>{{ t.timestamp }} - {{ t.type }}: ${{ t.amount }} (баланс: ${{ t.balance_after }})</li>
+    {% endfor %}
+    </ul>
+</div>
     </div>
 
 
