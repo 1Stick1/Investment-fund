@@ -1,54 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registartion</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo_1.png') }}" type="image/x-icon">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rejestracja</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo_1.png') }}" type="image/x-icon">
 </head>
 <body>
-
-
   {% include "header.html" %}
-
 
   <div class="container">
     <div class="auth">
-  <h2 class="auth__title">Rejestracja</h2>
+      <h2 class="auth__title">Rejestracja</h2>
 
-  <form class="auth__form_2" method="POST" action="/register">
+      <form class="auth__form_2" id="signup" method="POST" action="/register">
+        <div class="auth__field">
+          <label class="auth__label" for="email">Email:</label>
+          <input class="auth__input" name="email" type="email" id="email" required>
+        </div>
 
-    <div class="auth__field">
-      <label class="auth__label" for="email">Email:</label>
-      <input class="auth__input" name="email" type="email" id="email" required>
+        <div class="auth__field">
+          <label class="auth__label" for="username">Imię:</label>
+          <input class="auth__input" name="username" type="text" id="username" required>
+        </div>
+
+        <div class="auth__field">
+          <label class="auth__label" for="password">Hasło:</label>
+          <input class="auth__input" name="password" type="password" id="password" required>
+        </div>
+
+        <div class="auth__field">
+          <label class="auth__label" for="password_again">Powtórz hasło:</label>
+          <input class="auth__input" type="password" id="password_again" required>
+        </div>
+
+        <div id="msg" class="auth__msg"></div>
+
+        <div class="auth__registration-actions">
+          <button class="button auth__button" type="submit">Utwórz konto</button>
+        </div>
+      </form>
     </div>
+  </div>
 
-    <div class="auth__field">
-      <label class="auth__label" for="username">Imię:</label>
-      <input class="auth__input" name="username" type="text" id="username" required>
-    </div>
-
-    <div class="auth__field">
-      <label class="auth__label" for="password">Hasło:</label>
-      <input class="auth__input" name="password" type="password" id="password" required>
-    </div>
-
-    <div class="auth__field">
-      <label class="auth__label" for="password">Powtórz hasło:</label>
-      <input class="auth__input" type="password" id="password-again" required>
-    </div>
-
-    <div class="auth__registration-actions">
-      <button class="button auth__button" type="submit">
-        Utwórz konto
-      </button>
-    </div>
-  </form>
-</div>
-</div>
-
-
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  {% include "footer.html" %}
+</body>
+</html>
 
 <style>
 .flash {
@@ -61,10 +61,3 @@
 .flash.success { background-color: #c7ffd8; color: #065f46; }
 .flash.error { background-color: #ffd6d6; color: #b91c1c; }
 </style>
-
-
-
-
-{% include "footer.html" %}
-</body>
-</html>
