@@ -62,75 +62,44 @@
           </form>
         </div>
         <div class="customer-panel__inwestments">
-    <h2>История wartości portfela</h2>
+    <h2>Historia wartości portfela</h2>
     
     <div class="balance-info">
-        <p>Текущий баланс: ${{ investment.current_balance|round(2) }}</p>
-        <p>Всего инвестировано: ${{ investment.total_invested|round(2) }}</p>
-        <p>Прибыль: ${{ (investment.current_balance - investment.total_invested)|round(2) }}</p>
+        <p>Saldo bieżące: {{ investment.current_balance|round(2) }} zł</p>
+        <p>Całkowita wielkość inwestycji: {{ investment.total_invested|round(2) }} zł</p>
+        <p>Zysk: {{ (investment.current_balance - investment.total_invested)|round(2) }} zł</p>
+    </div>
+             <h3 class="transactions-history-title">Historia transakcji</h3>
+    <div class="transactions-history">
+    <ul>
+    {% for t in transactions %}
+        <li>{{ t.timestamp }} - {{ t.type }}: {{ t.amount }} zł (saldo: {{ t.balance_after }}) zł</li>
+    {% endfor %}
+    </ul>
     </div>
     
-    <canvas class="customer-panel__canvas" id="portfolioChart"></canvas>
     
     <div class="customer-panel__action">
         <form action="{{ url_for('invest') }}" method="post">
-            <input type="number" name="amount" step="0.01" min="0" placeholder="Сумма" required>
+            <input type="number" name="amount" step="0.01" min="0" placeholder="Ilość pieniędzy" required>
             <button type="submit" class="customer-panel__action-button--invest field-button button">
-                Invest
+                Inwestować
             </button>
         </form>
         
         <form action="{{ url_for('withdraw') }}" method="post">
-            <input type="number" name="amount" step="0.01" min="0" placeholder="Сумма" required>
+            <input type="number" name="amount" step="0.01" min="0" placeholder="Ilość pieniędzy" required>
             <button type="submit" class="customer-panel__action-button--withdraw field-button button">
-                Withdraw
+              Wycofać
             </button>
         </form>
     </div>
-    
-    <h3>История транзакций</h3>
-    <ul>
-    {% for t in transactions %}
-        <li>{{ t.timestamp }} - {{ t.type }}: ${{ t.amount }} (баланс: ${{ t.balance_after }})</li>
-    {% endfor %}
-    </ul>
 </div>
     </div>
-
-
-
   </main>
 
     {% include "footer.html" %}
 
-<script>
-    async function loadPortfolio(userId) {
-  const resp = await fetch(`/api/portfolio/${userId}`);
-  const data = await resp.json();
-  const ctx = document.getElementById("portfolioChart");
-
-  new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: data.dates,
-      datasets: [{
-        label: "Стоимость портфеля",
-        data: data.values,
-        borderWidth: 2,
-        fill: false,
-        tension: 0.2,
-      }]
-    },
-    options: {
-      scales: {
-        y: { beginAtZero: false }
-      }
-    }
-  });
-}
-
-loadPortfolio(1);
-</script>
 
 </body>
 </html>

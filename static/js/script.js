@@ -42,17 +42,17 @@ form.addEventListener('submit', function (e) {
   const pw2 = password_again.value;
 
   if (!pwRegex.test(pw)) {
-    msg.textContent = "❌ Hasło musi mieć co najmniej 8 znaków, zawierać małą i wielką literę oraz symbol (np. !@#).";
+    msg.textContent = " Hasło musi mieć co najmniej 8 znaków, zawierać małą i wielką literę oraz symbol (np. !@#).";
     msg.style.color = "red";
     return;
   }
 
   if (pw !== pw2) {
-    msg.textContent = "❌ Hasła nie pasują.";
+    msg.textContent = " Hasła nie pasują.";
     msg.style.color = "red";
     return;
   }
-  msg.textContent = "✅ Hasła pasują!";
+  msg.textContent = " Hasła pasują!";
   msg.style.color = "green";
   form.submit();
 });

@@ -638,11 +638,21 @@ font-weight: 900;
   display: flex;
   justify-content: end;
   gap: 10px;
+  margin-top: 20px;
 }
 .customer-panel__action-button--invest,.customer-panel__action-button--withdraw{
   height: 45px;
+  margin-top: 10px;
 }
-
+.transactions-history{
+  max-height: 80px;
+  overflow-y: auto; 
+  margin-top: 3px; 
+}
+.transactions-history-title{
+  margin-top: 7px;
+  font-size: 22px
+}
 /* ------------------------CALCULATOR------------------------------------------------------------- */
 
 
@@ -825,7 +835,6 @@ label {
   color: #6c757d;
 }
 
-
 .panel__risk-level p {
   border: 1px solid #f1d34a;
   background: #fffbe6;
@@ -843,7 +852,6 @@ label {
   align-items: center;
   height: 300px;
 }
-
 
 .panel__risk-box {
   width: 55px;
@@ -874,9 +882,6 @@ label {
     width: 70px;
     font-size: 25px;
 }
-
-
-
 
 .shedule {
   background-color: #f3f4f6;

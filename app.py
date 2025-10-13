@@ -172,22 +172,6 @@ def data():
     return jsonify(data_points)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def calculate_portfolio_growth(sp500_change, bund_change):
     return (0.6 * sp500_change) + (0.4 * bund_change)
 
@@ -243,14 +227,14 @@ def invest():
     try:
         amount = float(request.form.get('amount', 0))
         if amount <= 0:
-            flash('Сумма должна быть положительной', 'error')
+            flash('Kwota musi być dodatnia', 'error')
             return redirect(url_for('customer_panel'))
         
         new_balance = db.invest_money(session['user_id'], amount)
-        flash(f'Инвестировано ${amount:.2f}. Новый баланс: ${new_balance:.2f}', 'success')
+        flash(f'Zainwestowano: {amount:.2f} zł. Nowe saldo: {new_balance:.2f} zł', 'success')
         
     except Exception as e:
-        flash(f'Ошибка: {str(e)}', 'error')
+        flash(f'Błąd: {str(e)}', 'error')
     
     return redirect(url_for('customer_panel'))
 
@@ -263,11 +247,11 @@ def withdraw():
     try:
         amount = float(request.form.get('amount', 0))
         if amount <= 0:
-            flash('Сумма должна быть положительной', 'error')
+            flash('Kwota musi być dodatnia', 'error')
             return redirect(url_for('customer_panel'))
         
         new_balance = db.withdraw_money(session['user_id'], amount)
-        flash(f'Выведено ${amount:.2f}. Новый баланс: ${new_balance:.2f}', 'success')
+        flash(f'Wypłacono z salda: {amount:.2f} zł. Nowe saldo: {new_balance:.2f} zł', 'success')
         
     except ValueError as e:
         flash(str(e), 'error')
@@ -276,10 +260,6 @@ def withdraw():
     
     return redirect(url_for('customer_panel'))
 
-
-
-
-# Обновленный customer_panel
 @app.route("/customer_panel")
 def customer_panel():
     if 'user_id' not in session:
@@ -296,28 +276,9 @@ def customer_panel():
         transactions=transactions
     )
 
-
-
 scheduler = BackgroundScheduler()
 scheduler.add_job(func=update_all_portfolios, trigger="interval", seconds=10)  # Каждый час
 scheduler.start()
 
-
-
-
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
-
-
-
-
-
-
-
-
-
-
-

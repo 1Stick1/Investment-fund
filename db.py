@@ -28,14 +28,6 @@ def get_user_by_email(email):
     return dict(user) if user else None
 
 
-
-# def update_user(user_id, username, email, password):
-#     conn = get_connection()
-#     conn.execute('UPDATE users SET username = ?, email = ?, password = ? WHERE id = ?', (name, email, password, user_id))
-#     conn.commit()
-#     conn.close()
-
-
 def update_user_email(user_id, email):
     conn = get_connection()
     print(email)
@@ -48,24 +40,7 @@ def update_user_username(user_id, username):
     conn = get_connection()
     conn.execute('UPDATE users SET username = ? WHERE id = ?', (username, user_id))
     conn.commit()
-    conn.close()
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    conn.close()  
 def get_or_create_investment(user_id):
     """Получить или создать инвестиционный аккаунт"""
     conn = get_connection()
@@ -132,21 +107,21 @@ def withdraw_money(user_id, amount):
     inv = get_or_create_investment(user_id)
     
     if inv['current_balance'] < amount:
-        raise ValueError("Недостаточно средств")
+        raise ValueError("Niewystarczające środki")
     
     new_balance = inv['current_balance'] - amount
+    new_total = inv['total_invested'] - amount 
     
     conn = get_connection()
     conn.execute(
-        "UPDATE investment SET current_balance = ?, last_update = CURRENT_TIMESTAMP WHERE user_id = ?",
-        (new_balance, user_id)
+        "UPDATE investment SET current_balance = ?, total_invested = ?, last_update = CURRENT_TIMESTAMP WHERE user_id = ?",
+        (new_balance, new_total, user_id)  
     )
     conn.commit()
     conn.close()
     
     add_transaction(user_id, 'withdraw', amount, new_balance)
     return new_balance
-
 
 def get_user_transactions(user_id, limit=20):
     """Получить историю транзакций"""
