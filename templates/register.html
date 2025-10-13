@@ -42,13 +42,27 @@
           <button class="button auth__button" type="submit">Utwórz konto</button>
         </div>
       </form>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class="error-messages">
+      {% for category, message in messages %}
+        {% if category == 'error' %}
+          <li class="error">{{ message }}</li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+{% endif %}
+{% endwith %}
     </div>
   </div>
-
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   {% include "footer.html" %}
 </body>
 </html>
+
+</div>
+</div>
 
 <style>
 .flash {

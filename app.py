@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify, flash, session
 import db
 from werkzeug.security import generate_password_hash, check_password_hash
-
+ 
+import sqlite3
+ 
 import yfinance as yf
 import datetime
 
@@ -16,26 +18,26 @@ def index():
 @app.route("/logout")
 def logout():
     session.clear()
-    flash('Вы вышли из аккаунта', 'success')
     return redirect(url_for('index'))
 
 @app.route("/login", methods=['GET', 'POST'])
-def login():
+def login():    
     if 'user_id' in session:
         return redirect(url_for('index'))
     if request.method == 'POST':
+        
         email = request.form['email']
         password = request.form['password']
 
         user = db.get_user_by_email(email)
         if user and check_password_hash(user['password'], password):
             session['user_id'] = user['id']
+            
             session['username'] = user['username']
             session['email'] = user['email']
-            flash('Correct', 'succes')
             return redirect(url_for('customer_panel'))
         else:
-            flash('Not Correct', 'error')
+            flash('Złe hasło lub login', 'error')
             return redirect(url_for("login"))
         
     return render_template("login.html")
@@ -52,29 +54,31 @@ def register():
         hashed_password = generate_password_hash(password)
         try:
             db.add_user(email, username, hashed_password)
-            return redirect(url_for('index'))
-        except Exception as e:
+            flash('Konto zostało pomyślnie stworzone', 'success')
+            return redirect(url_for('login'))
+        except sqlite3.IntegrityError as e:
+            if 'UNIQUE constraint failed: users.email' in str(e):
+                flash("Ten adres e-mail jest zajęty.", 'error')
             return redirect(url_for('register'))
-    
+        except Exception as e:
+            flash("Wystąpił problem. Proszę spróbować ponownie.", 'error')
+            return redirect(url_for('register'))
     return render_template("register.html")
 
 @app.route('/update_email', methods=['GET', 'POST'])
-def update_email():
-    if 'user_id' not in session:
-        flash("Пожалуйста, войдите в систему")
-        return redirect(url_for('login'))
-
+def update_email():    
     user_id = session['user_id']
 
     if request.method == 'POST':
         new_email = request.form.get('email').strip()
         
         if not new_email:
-            flash("Email nie może być pusty")
-            return redirect(url_for('update_email'))
+            flash("Email nie może być pusty", 'error')
+            return redirect(url_for('customer_panel'))
 
         db.update_user_email(user_id, new_email)
-        flash("Adres e-mail został pomyślnie zaktualizowany")
+        flash("Adres e-mail został pomyślnie zaktualizowany", 'success')
+        session['email'] = new_email
         return redirect(url_for('customer_panel'))
 
 @app.route('/update_username', methods=['GET', 'POST'])
@@ -83,13 +87,12 @@ def update_username():
 
     if request.method == 'POST':
         new_username = request.form.get('username').strip()
-        
         if not new_username:
-            flash("Imię nie może być puste")
-            return redirect(url_for('update_username'))
+            flash("Imię nie może być puste", 'error')
+            return redirect(url_for('customer_panel'))
 
         db.update_user_username(user_id, new_username)
-        flash("Imię zostało pomyślnie zaktualizowane")
+        flash("Imię zostało pomyślnie zaktualizowane", 'success')
         session['username'] = new_username
         return redirect(url_for('customer_panel'))
 

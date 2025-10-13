@@ -41,6 +41,21 @@ html{
     font-family: "Mulish", sans-serif;
     background-color: #f0f3f2;
 }
+.error-messages{
+  color: red;
+  text-align: center;
+  margin: 10px;
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.success-messages{
+  color: green;
+  text-align: center;
+  margin: 10px;
+  font-size: 17px;
+  font-weight: 900;
+}
 
 .button{
     display: inline-block;
@@ -59,6 +74,22 @@ html{
     background-color: #f0c060;
     border: 3px solid #9f7030;
 }
+
+input, select {
+    color: #b58222;
+    padding: 10px 14px;
+    border: 1px solid #d3d3d3;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #f0c060;
+    box-shadow: 0 0 4px 4px rgba(240, 192, 96, 0.25);
+}
+
 
 
 .container{
@@ -622,11 +653,12 @@ font-weight: 900;
 
 .calculator {
     max-width: 800px;
-    margin: 40px auto;
+    margin: 100px auto;
     background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    padding: 30px 40px
+    padding: 30px 40px;
+    margin-bottom: 390px;
 }
 
 .section-1__button_1 {
@@ -668,20 +700,7 @@ label {
     margin-bottom: 8px;
 }
 
-input[type="text"], select {
-    color: #b58222;
-    padding: 10px 14px;
-    border: 1px solid #d3d3d3;
-    border-radius: 8px;
-    font-size: 15px;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
 
-input[type="text"]:focus, select:focus {
-    outline: none;
-    border-color: #f0c060;
-    box-shadow: 0 0 4px 4px rgba(240, 192, 96, 0.25);
-}
 
 .section-1__button_1 {
     text-align: center;

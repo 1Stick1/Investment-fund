@@ -6,13 +6,15 @@
     <title>Logowanie</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
       <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo_1.png') }}" type="image/x-icon">
+      <style>
+
+      </style>
 </head>
 <body>
   {% include "header.html" %}
 <div class="container">
   <div class="auth">
   <h2 class="auth__title">Logowanie</h2>
-
   <form class="auth__form_1" method="POST" action="/login">
     
 
@@ -35,6 +37,19 @@
       </button>
     </div>
   </form>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class="flashes">
+      {% for category, message in messages %}
+        {% if category == 'success' %}
+          <li class="success-messages">{{ message }}</li>
+        {% elif category == 'error' %}
+          <li class="error-messages">{{ message }}</li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
 </div>
 </div>
 

@@ -34,6 +34,8 @@ def get_user_by_email(email):
 
 def update_user_email(user_id, email):
     conn = get_connection()
+    print(email)
+    print(user_id)
     conn.execute('UPDATE users SET email = ? WHERE id = ?', (email, user_id))
     conn.commit()
     conn.close()
