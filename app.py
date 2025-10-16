@@ -281,6 +281,20 @@ scheduler = BackgroundScheduler()
 scheduler.add_job(func=update_all_portfolios, trigger="interval", seconds=10)  # Каждый час
 scheduler.start()
 
+
+@app.after_request
+def apply_csp(response):
+    response.headers['Content-Security-Policy'] = (
+        "default-src 'self'; "
+        "script-src 'self'; "
+        "style-src 'self'; "
+        "img-src 'self'; "
+        "object-src 'none'; "
+        "base-uri 'self'; "
+        "form-action 'self'"
+    )
+    return response
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
