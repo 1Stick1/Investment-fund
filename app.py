@@ -8,6 +8,7 @@ from threading import Lock
 update_lock = Lock()
  
  
+import os
 import yfinance as yf
 import datetime
 
@@ -280,5 +281,6 @@ scheduler = BackgroundScheduler()
 scheduler.add_job(func=update_all_portfolios, trigger="interval", seconds=10)  # Каждый час
 scheduler.start()
 
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
