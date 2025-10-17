@@ -346,8 +346,10 @@ def apply_csp(response):
         "img-src 'self'; "
         "object-src 'none'; "
         "base-uri 'self'; "
-        "form-action 'self'"
+        "form-action 'self'; "
+        "frame-ancestors 'self';"
     )
+    response.headers['X-Frame-Options'] = 'SAMEORIGIN'
     return response
 
 if __name__ == '__main__':
