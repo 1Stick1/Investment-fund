@@ -350,6 +350,10 @@ def apply_csp(response):
         "frame-ancestors 'self';"
     )
     response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+    response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['Referrer-Policy'] = 'no-referrer'
+    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains; preload'
     return response
 
 
