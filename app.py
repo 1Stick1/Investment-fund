@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify, flash, session
+from flask import Flask, render_template, request, redirect, url_for, jsonify, flash, session, Response
 from flask_wtf import FlaskForm, CSRFProtect
 
 from wtforms import StringField, PasswordField, SubmitField, EmailField
@@ -337,7 +337,7 @@ scheduler.add_job(func=update_all_portfolios, trigger="interval", seconds=10)
 scheduler.start()
 
 @app.after_request
-def apply_csp(response):
+def apply_security_headers(response: Response):
     response.headers['Content-Security-Policy'] = (
         "default-src 'self'; "
         "script-src 'self' https://cdn.jsdelivr.net; "
@@ -349,7 +349,6 @@ def apply_csp(response):
         "form-action 'self'; "
         "frame-ancestors 'self';"
     )
-    response.headers['X-Frame-Options'] = 'SAMEORIGIN'
     response.headers['X-Frame-Options'] = 'SAMEORIGIN'
     response.headers['X-Content-Type-Options'] = 'nosniff'
     response.headers['Referrer-Policy'] = 'no-referrer'
