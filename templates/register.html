@@ -7,7 +7,6 @@
 
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo_1.png') }}" type="image/x-icon">
-  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </head>
 <body>
@@ -32,7 +31,7 @@
 
         <div class="auth__field">
           <label class="auth__label" for="{{form.password.id}}">Hasło:</label>
-          {{ form.password(class="auth__input", id=form.password.id) }}
+          {{ form.password(class="auth__input", id="password") }}
         </div>
 
         <div class="auth__field">
@@ -61,13 +60,14 @@
     </div>
   </div>
   {% include "footer.html" %}
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
 
 </div>
 </div>
 
-<style>
+<!-- <style>
 .flash {
     padding: 10px;
     border-radius: 5px;
@@ -77,4 +77,4 @@
 
 .flash.success { background-color: #c7ffd8; color: #065f46; }
 .flash.error { background-color: #ffd6d6; color: #b91c1c; }
-</style>
+</style> -->
