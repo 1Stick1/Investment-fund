@@ -7,6 +7,8 @@
 
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo_1.png') }}" type="image/x-icon">
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
 </head>
 <body>
   {% include "header.html" %}
@@ -16,19 +18,21 @@
       <h2 class="auth__title">Rejestracja</h2>
 
       <form class="auth__form_2" id="signup" method="POST" action="/register">
+        {{ form.hidden_tag() }}
+
         <div class="auth__field">
-          <label class="auth__label" for="email">Email:</label>
-          <input class="auth__input" name="email" type="email" id="email" required>
+          <label class="auth__label" for="{{ form.email.id }}">Email:</label>
+          {{ form.email(class="auth__input", id=form.email.id) }}
         </div>
 
         <div class="auth__field">
-          <label class="auth__label" for="username">Imię:</label>
-          <input class="auth__input" name="username" type="text" id="username" required>
+          <label class="auth__label" for="{{ form.username.id }}">Imię:</label>
+          {{ form.username(class="auth__input", id=form.username.id) }}
         </div>
 
         <div class="auth__field">
-          <label class="auth__label" for="password">Hasło:</label>
-          <input class="auth__input" name="password" type="password" id="password" required>
+          <label class="auth__label" for="{{form.password.id}}">Hasło:</label>
+          {{ form.password(class="auth__input", id=form.password.id) }}
         </div>
 
         <div class="auth__field">
@@ -39,7 +43,7 @@
         <div id="msg" class="auth__msg"></div>
 
         <div class="auth__registration-actions">
-          <button class="button auth__button" type="submit">Utwórz konto</button>
+          {{ form.submit(class="button auth__button") }}
         </div>
       </form>
 
@@ -56,7 +60,6 @@
 {% endwith %}
     </div>
   </div>
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
   {% include "footer.html" %}
 </body>
 </html>

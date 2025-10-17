@@ -21,16 +21,19 @@
         <div class="customer-panel__fields">
 
           <form class="customer-panel__username" action="{{ url_for('update_username') }}" method="POST">
-            <input class="field" value="{{ session.get('username') }}" type="text" name="username">
+             {{ username_form.hidden_tag() }}
+             {{ username_form.username(class="field", value=session.get('username')) }}
             <br>
-            <button type="submit" class="customer-panel__username-button field-button button">Zmień imię</button>
+             {{ username_form.submit(class="customer-panel__username-button field-button button") }}
           </form>
 
-          <form class="customer-panel__email" action="{{ url_for('update_email') }}"  method="POST">
-            <input class="field" value="{{ session.get('email') }}" type="email" name="email" >
-            <br>
-            <button type="submit" class="customer-panel__email-button field-button button">Zmień maila</button>
-          </form>
+         <form class="customer-panel__email" action="{{ url_for('update_email') }}" method="POST">
+          {{ email_form.hidden_tag() }}
+          {{ email_form.email(class="field", value=session.get('email')) }}
+          <br>
+          {{ email_form.submit(class="customer-panel__email-button field-button button") }}
+        </form>
+
 
           
           <form class="customer-panel__password">

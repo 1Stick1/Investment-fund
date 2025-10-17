@@ -1,4 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify, flash, session
+from flask_wtf import FlaskForm, CSRFProtect
+
+from wtforms import StringField, PasswordField, SubmitField, EmailField
+from wtforms.validators import DataRequired, Email
+
 import db
 from werkzeug.security import generate_password_hash, check_password_hash
  
@@ -15,7 +20,11 @@ import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 
 app = Flask(__name__)
-app.secret_key = 'supersecretkey'
+app.config['SECRET_KEY'] = 'O1LI@JF12as#DFdo&apf6ij09fgID134H'
+
+csrf = CSRFProtect(app)
+
+
 
 
 @app.route("/")
@@ -27,41 +36,60 @@ def logout():
     session.clear()
     return redirect(url_for('index'))
 
+
+class LoginForm(FlaskForm):
+    email = EmailField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Hasło', validators=[DataRequired()])
+    submit = SubmitField('Zalogować się')
+
 @app.route("/login", methods=['GET', 'POST'])
 def login():    
     if 'user_id' in session:
         return redirect(url_for('index'))
-    if request.method == 'POST':
-        
-        email = request.form['email']
-        password = request.form['password']
+    form = LoginForm()
+    if form.validate_on_submit():
+            
+        email = form.email.data
+        password = form.password.data
 
         user = db.get_user_by_email(email)
         if user and check_password_hash(user['password'], password):
             session['user_id'] = user['id']
-            
+        
             session['username'] = user['username']
             session['email'] = user['email']
             return redirect(url_for('customer_panel'))
         else:
             flash('Złe hasło lub login', 'error')
             return redirect(url_for("login"))
+        pass
         
-    return render_template("login.html")
+    return render_template("login.html", form=form)
+
+
+
+class RegistrationForm(FlaskForm):
+    username = StringField('Imię', validators=[DataRequired()])
+    email = EmailField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Hasło', validators=[DataRequired()])
+    submit = SubmitField('Utwórz konto')
+
+
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
+    form = RegistrationForm()
     if 'user_id' in session:
         return redirect(url_for('index'))
-    if request.method == 'POST':
-        email = request.form['email']
-        username = request.form['username']
-        password = request.form['password']
+    if form.validate_on_submit():            
+        username = form.username.data
+        email = form.email.data
+        password = form.password.data
         
         hashed_password = generate_password_hash(password)
         try:
             db.add_user(email, username, hashed_password)
-            
+        
             flash('Konto zostało pomyślnie stworzone', 'success')
             return redirect(url_for('login'))
         except sqlite3.IntegrityError as e:
@@ -71,15 +99,25 @@ def register():
         except Exception as e:            
             flash("Wystąpił problem. Proszę spróbować ponownie.", 'error')
             return redirect(url_for('register'))
-        
-    return render_template("register.html")
+        pass
+    return render_template("register.html", form=form)
+
+
+
+class UpdateEmailForm(FlaskForm):
+    email = EmailField("Email", validators=[DataRequired(), Email()])
+    submit = SubmitField("Zmień maila")
+
+
 
 @app.route('/update_email', methods=['GET', 'POST'])
 def update_email():    
+    form = UpdateEmailForm()
+    
     user_id = session['user_id']
 
-    if request.method == 'POST':
-        new_email = request.form.get('email').strip()
+    if form.validate_on_submit():
+        new_email = form.email.data
         
         if not new_email:
             flash("Email nie może być pusty", 'error')
@@ -89,13 +127,22 @@ def update_email():
         flash("Adres e-mail został pomyślnie zaktualizowany", 'success')
         session['email'] = new_email
         return redirect(url_for('customer_panel'))
+        pass
+    return render_template("customer_panel.html", email_form=form)
+
+class UpdateUsernameForm(FlaskForm):
+    username = StringField("Nazwa użytkownika", validators=[DataRequired()])
+    submit = SubmitField("Zmień imię")
+
 
 @app.route('/update_username', methods=['GET', 'POST'])
 def update_username():
+    form = UpdateUsernameForm()
+    
     user_id = session['user_id']
 
-    if request.method == 'POST':
-        new_username = request.form.get('username').strip()
+    if form.validate_on_submit():
+        new_username = form.username.data
         if not new_username:
             flash("Imię nie może być puste", 'error')
             return redirect(url_for('customer_panel'))
@@ -104,6 +151,8 @@ def update_username():
         flash("Imię zostało pomyślnie zaktualizowane", 'success')
         session['username'] = new_username
         return redirect(url_for('customer_panel'))
+        pass
+    return render_template("customer_panel.html", username_form=form)
 
 
 @app.route("/about_us")
@@ -263,8 +312,12 @@ def withdraw():
 
 @app.route("/customer_panel")
 def customer_panel():
+
     if 'user_id' not in session:
         return redirect(url_for('login'))
+    
+    username_form = UpdateUsernameForm()
+    email_form = UpdateEmailForm()
     
     username = session['username']
     investment = db.get_or_create_investment(session['user_id'])
@@ -274,7 +327,9 @@ def customer_panel():
         "customer-panel.html", 
         username=username,
         investment=investment,
-        transactions=transactions
+        transactions=transactions,
+        username_form=username_form,
+        email_form=email_form 
     )
 
 scheduler = BackgroundScheduler()

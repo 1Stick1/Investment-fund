@@ -16,25 +16,22 @@
   <div class="auth">
   <h2 class="auth__title">Logowanie</h2>
   <form class="auth__form_1" method="POST" action="/login">
-    
-
+    {{ form.hidden_tag() }}
     <div class="auth__field">
       <label class="auth__label" for="email">Email:</label>
-      <input class="auth__input" name="email" type="email" id="email">
+      {{ form.email(class="auth__input", id=form.email.id) }}
     </div>
 
     <div class="auth__field">
       <label class="auth__label" for="password">Hasło:</label>
-      <input class="auth__input" name="password" type="password" id="password">
+      {{ form.password(class="auth__input", id=form.password.id) }}
     </div>
 
     <div class="auth__login-actions">
       <a class="button auth__button" href="{{ url_for('register') }}"> 
         Utwórz konto
       </a>
-      <button class="button auth__button" type="submit">
-        Zalogować się
-      </button>
+      {{ form.submit(class="button auth__button") }}
     </div>
   </form>
 {% with messages = get_flashed_messages(with_categories=true) %}

@@ -27,7 +27,7 @@ Aplikacja umożliwia użytkownikom:
 
 ## Testy bezpieczeństwa
 
-Projekt był testowany przy użyciu OWASP ZAP. Wykryto między innymi następujące problemy:
+Projekt był testowany przy użyciu **OWASP ZAP**. Wykryto między innymi następujące problemy:
 
 - **Absence of Anti-CSRF Tokens (6)**  
   Formularze i endpointy nie zawierają tokenów anty-CSRF, co zwiększa ryzyko nieautoryzowanych akcji użytkownika.
