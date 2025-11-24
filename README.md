@@ -14,7 +14,6 @@ Aplikacja umożliwia użytkownikom:
 - **Baza danych:** SQLite3  
 - **Frontend:** HTML, CSS, JavaScript  
 - **Metodologia CSS:** BEM (Blok-Element-Modifier)  
-- **Inne:** [tutaj można dodać dodatkowe technologie lub biblioteki, jeśli pamiętasz]
 
 
 ## Funkcjonalności
